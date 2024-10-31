@@ -1,50 +1,43 @@
-<?php ob_start(); ?>
-<?php
+<?php 
 session_start();
 include("../connection.php");
 
-if (isset($_SESSION['user_id']) && isset($_POST['issue_id'])) {
-    $user_id = $_SESSION['user_id'];
-    $issue_id = $_POST['issue_id'];
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ../login.php");
+    exit;
+}
 
-    // Check if the user has already upvoted
-    $checkVoteQuery = "SELECT * FROM votes WHERE user_id = ? AND issue_id = ?";
-    $stmt = $con->prepare($checkVoteQuery);
-    $stmt->bind_param("ii", $user_id, $issue_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
+$user_id = $_SESSION['user_id'];
+$imagePath = "../profileimages/person.png";
 
-    if ($result->num_rows > 0) {
-        // User has already upvoted, so remove the upvote
-        $deleteVoteQuery = "DELETE FROM votes WHERE user_id = ? AND issue_id = ?";
-        $stmt = $con->prepare($deleteVoteQuery);
-        $stmt->bind_param("ii", $user_id, $issue_id);
-        $stmt->execute();
+// Database connection check
+if (!$con) {
+    die("Database connection failed: " . mysqli_connect_error());
+}
 
-        // Decrement the up_count in complaints
-        $updateComplaintQuery = "UPDATE complaints SET up_count = up_count - 1 WHERE issue_id = ?";
-        $stmt = $con->prepare($updateComplaintQuery);
-        $stmt->bind_param("i", $issue_id);
-        $stmt->execute();
+// Fetch unresolved complaints
+$result1 = mysqli_query($con, "SELECT * FROM complaints WHERE status = 'unresolved'");
+if (!$result1) {
+    die("Error retrieving complaints: " . mysqli_error($con));
+}
 
-        echo "removed";
-    } else {
-        // User has not upvoted, so add the upvote
-        $insertVoteQuery = "INSERT INTO votes (user_id, issue_id) VALUES (?, ?)";
-        $stmt = $con->prepare($insertVoteQuery);
-        $stmt->bind_param("ii", $user_id, $issue_id);
-        $stmt->execute();
-
-        // Increment the up_count in complaints
-        $updateComplaintQuery = "UPDATE complaints SET up_count = up_count + 1 WHERE issue_id = ?";
-        $stmt = $con->prepare($updateComplaintQuery);
-        $stmt->bind_param("i", $issue_id);
-        $stmt->execute();
-
-        echo "added";
+// Fetch user's upvoted complaints
+$userVotes = [];
+$userVotesQuery = mysqli_query($con, "SELECT issue_id FROM votes WHERE user_id = $user_id");
+if ($userVotesQuery) {
+    while ($voteRow = mysqli_fetch_assoc($userVotesQuery)) {
+        $userVotes[] = $voteRow['issue_id'];
     }
 }
-?> 
+
+// Include profile image path (if available)
+$profileQuery = "SELECT path FROM user_profiles WHERE user_id = '$user_id'";
+$profileResult = mysqli_query($con, $profileQuery);
+if ($profileResult && mysqli_num_rows($profileResult) > 0) {
+    $row = mysqli_fetch_assoc($profileResult);
+    $imagePath = $row['path'];
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -68,36 +61,33 @@ if (isset($_SESSION['user_id']) && isset($_POST['issue_id'])) {
 
             // Set profile image on load
             const profileImageElement = document.getElementById("profile");
-            const imagePath = "<?php echo $imagePath; ?>"; 
-            profileImageElement.src = imagePath;
+            profileImageElement.src = "<?php echo $imagePath; ?>";
 
-            // Upvote function with color toggle
+            // Upvote function with color toggle and debugging
             function upvoteComplaint(issueId) {
-    $.ajax({
-        url: 'upvote.php',
-        type: 'POST',
-        data: { issue_id: issueId },
-        success: function(response) {
-            const button = document.getElementById(`upvote-${issueId}`);
-            if (response.trim() === "added") {
-                button.classList.add('upvoted');
-            } else if (response.trim() === "removed") {
-                button.classList.remove('upvoted');
+                $.ajax({
+                    url: 'upvote.php',
+                    type: 'POST',
+                    data: { issue_id: issueId },
+                    success: function(response) {
+                        console.log(response); // Debugging response
+                        const button = document.getElementById(`upvote-${issueId}`);
+                        if (response.trim() === "added") {
+                            button.classList.add('upvoted');
+                        } else if (response.trim() === "removed") {
+                            button.classList.remove('upvoted');
+                        }
+                        location.reload(); // Reload to update the upvote count
+                    },
+                    error: function(error) {
+                        alert('Error upvoting');
+                    }
+                });
             }
-            location.reload(); // Reload to update the upvote count
-        },
-        error: function(error) {
-            alert('Error upvoting');
-        }
-    });
-}
-
-
             window.upvoteComplaint = upvoteComplaint; // Expose function globally
         });
     </script>
     <style>
-        /* Additional styling */
         .box-container {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -127,7 +117,7 @@ if (isset($_SESSION['user_id']) && isset($_POST['issue_id'])) {
             cursor: pointer;
         }
         .upbtn.upvoted {
-            color: green; /* Change color if upvoted */
+            color: green;
         }
     </style>
 </head>

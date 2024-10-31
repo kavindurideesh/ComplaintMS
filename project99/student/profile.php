@@ -106,6 +106,7 @@ if ($result && mysqli_num_rows($result) > 0) {
         </script>
  
             <style>
+                
                 .sidebar__inner ul li a {
                     text-decoration: none; 
                 } 

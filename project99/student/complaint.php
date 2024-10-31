@@ -297,6 +297,10 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <input type="text" class="input" id="serial" name="serial"  value="<?php setValue('serial'); ?>">
                         </div>
                         <div class="inputfield">
+                            <label>Upload Image</label>
+                            <input type="file" class="input" id="image" name="image" accept="image/*">
+                        </div>
+                        <div class="inputfield">
                             <input type="submit" name="<?php name(); ?>" value="<?php name(); ?>" class="btn" onclick="openPopup()">
                         </div>
                     </form>
