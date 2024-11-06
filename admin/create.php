@@ -41,8 +41,17 @@ if (isset($_POST['createuser'])) {
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    
-    $result = createUser($username, $name, $email, $password, $role);
+    $result;
+    if(isset($_POST['admintype']))
+    {
+        $admin_type = $_POST['admintype'];
+        $result = createAdmin($username, $name, $email, $password, $role,$admin_type);
+    }
+
+    else
+    {
+        $result = createUser($username, $name, $email, $password, $role);
+    }
 
     if ($result) {
         header("location: manage.php");
@@ -196,12 +205,28 @@ main .recent-orders .p-3 button{
                         <div class="inputfield">
                             <label for="role" class="form-label">Role :</label>
                             <div class="custom_select">
-                                <select class="form-select" name="role" required>
-                                    <option value="admin">Admin</option>
+                                <select class="form-select" id="user_type" name="role" required>
                                     <option value="student">Student</option>
+                                    <option value="admin">Admin</option>
                                 </select>
                             </div>
                         </div>
+
+                        <div class="inputfield-admin" id = 'admintypefield'>
+                            <label for="adminType" class="form-label">Type :</label>
+                            <div class="custom_select">
+                                <select class="form-select-admin" name="admintype" required>
+                                    <option value="HOD">HOD</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                    <option value="Network Manager">Network Manager</option>
+                                    <option value="Instructor">Instructor</option>
+                                    <option value="Technical Officer">Technical Officer</option>
+                                    <option value="Laboratory Attendent">Laboratory Attendent</option>
+                                    <option value="Staff Management Assistant">Staff Management Assistant</option>
+                                </select>
+                            </div>
+                        </div>
+                       
                 
                         <button type="submit" class="btn btn-primary" name="createuser">Create User</button>
                     </form>

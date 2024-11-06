@@ -26,3 +26,20 @@ function toggle(){
     var popup = document.getElementById('popup');
     popup.classList.toggle('active');
 }
+
+const roleSelect = document.getElementById('user_type');
+const adminTypeField = document.getElementById('admintypefield');
+
+function toggleAdminField() {
+    if (roleSelect.value === 'admin') {
+        adminTypeField.style.display = 'flex'; // Show the admin type field
+    } else {
+        adminTypeField.style.display = 'none'; // Hide the admin type field
+    }
+}
+
+// Add event listener to roleSelect to detect changes
+roleSelect.addEventListener('change', toggleAdminField);
+
+// Initial check to set the visibility on page load
+toggleAdminField();

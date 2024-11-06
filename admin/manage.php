@@ -8,7 +8,8 @@ if(!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'
 $user=$_SESSION['user_id'];
 include("../connection.php");
 require 'actions.php';
-$sqlAdmins = "SELECT user_name, name, email, status FROM users WHERE role = 'admin'";
+$sqlAdmins = "SELECT users.user_id as user_id, users.user_name as user_name, users.name as name, users.email as email, admin_types.admin_type as type, 
+        users.status as status FROM users LEFT JOIN admin_types ON users.user_id = admin_types.admin_id WHERE role = 'admin'";
 $resultAdmins = mysqli_query($con, $sqlAdmins);
 $admins = array();
 
@@ -265,6 +266,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         <th>Name</th>
                         <th>Email</th>
                         <th>Status</th>
+                        <th>Type</th>
                     </tr></thead>
                     <tbody>
                     <?php foreach ($admins as $admin){ ?>
@@ -274,6 +276,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <td><?php echo $admin['name']; ?></td>
                             <td><?php echo $admin['email']; ?></td>
                             <td><?php echo $admin['status']; ?></td>
+                            <td><?php echo $admin['type']; ?></td>
                         </tr>
                     <?php } ?>
                     </tbody>
