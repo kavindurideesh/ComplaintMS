@@ -49,6 +49,8 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <title>Student - Home</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
+    <button onclick="window.location.href='../logout.php'" class="logout-btn">Logout</button>
+
     <script>
         $(document).ready(function(){
     // Set profile image on load
@@ -129,6 +131,17 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
             width: 50%;
             height:auto;
         }
+        .logout-btn {             
+    background-color: #ff4d4d;             
+    color: white;             
+    border: none;             
+    padding: 10px 15px;             
+    cursor: pointer;             
+    font-size: 1em;             
+    border-radius: 5px;             
+    margin-left: 10px;         
+}
+
     </style>
 </head>
 
@@ -155,7 +168,27 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
                     </div>
             </div>
         </div>
-        
+        <div class="top_navbar">
+    <div class="hamburger">
+        <div class="hamburger__inner">
+            <div class="one"></div>
+            <div class="two"></div>
+            <div class="three"></div>
+        </div>
+    </div>
+    <div class="menu">
+        <div class="logo">Home</div>
+        <div class="right_menu">
+            <ul>
+                <li>
+                    <!-- Add the logout button here -->
+                    <button onclick="window.location.href='../logout.php'" class="logout-btn">Logout</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
         <div class="main_container">
             <div class="sidebar">
                 <div class="sidebar__inner">
