@@ -1,0 +1,158 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', saans-serif;
+}
+
+h1 {
+    color: #050653
+}
+
+.btn {
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px 0;
+    background: #050653;
+    color: #fff;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+
+button {
+    padding: 5px 5px;
+    background: #050653;
+    border: 0;
+    color: white;
+    outline: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 3px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#complaint {
+    text-align: left;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+#complaint td,
+#complaint th {
+    border: 1px solid #ddd;
+    padding: 5px;
+    font-size: 15px;
+    max-width: 250px;
+    word-wrap: break-word;
+}
+
+#complaint tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#complaint tr:hover {
+    background-color: #ddd;
+}
+
+#complaint th {
+    border-top: 1px solid #ddd;
+    padding-bottom: 12px;
+    text-align: left;
+    color: #050653
+}
+
+.container#blur.active {
+    filter: blur(200px);
+    pointer-events: none;
+    user-select: none;
+}
+
+#popup form {
+    text-align: center;
+    padding: 20px;
+    height: 400px;
+    width: 300px;
+}
+
+#popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 50px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, .3);
+    background: #fff;
+    visibility: hidden;
+    opacity: 0;
+    transition: 0.3s;
+    text-align: center;
+    border: 2px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: auto;
+    font-weight: 500;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+textarea {
+    background: none;
+    width: 100%;
+    height: 30%;
+    border: 2px;
+    border-color: #000000;
+    border-radius: 10px;
+    border-top: 2px solid #070707;
+    border-left: 2px solid #070707;
+    border-right: 2px solid #070707;
+    border-bottom: 2px solid #070707;
+    font-weight: 300;
+    font-size: 15px;
+    padding: 5px;
+    outline: none;
+}
+
+input {
+    width: 100%;
+    padding-left: 10px;
+    margin-bottom: 15px;
+    margin-top: 20px;
+    border: none;
+    font-size: 15px;
+    background: none;
+    border-bottom: 2px solid #0f0f0f;
+    color: #000000;
+}
+
+#button:hover {
+    opacity: 0.7;
+}
+
+input::placeholder {
+    color: #000000;
+}
+/* textarea::-webkit-scrollbar {
+    width: 1em;
+}
+
+textarea::-webkit-scrollbar-thumb {
+
+ background-color: rgba(194, 194, 194, 0.713);
+}*/
+
+#popup.active {
+    visibility: visible;
+    opacity: 1;
+    transition: 0.5s;
+    top: 50%;
+}
