@@ -479,21 +479,15 @@ main .analyse .sales form{
     display: flex;
     align-items: center;
   }
-
-  main .analyse .sales form .inputfield-admin{
-    margin-bottom: 15px;
-    display: none;
-    align-items: center;
-  }
   
-  main .analyse .sales form .inputfield label,  main .analyse .sales form .inputfield-admin label{
+  main .analyse .sales form .inputfield label{
      width: 200px;
      color: var(--color-dark);
      margin-right: 10px;
     font-size: 14px;
   }
   
-  main .analyse .sales form .inputfield input,  main .analyse .sales form .inputfield-admin input{
+  main .analyse .sales form .inputfield input{
     width: 100%;
     outline: none;
     border: 1px solid #d5dbd9;
@@ -505,11 +499,11 @@ main .analyse .sales form{
   }
   
   
-  main .analyse .sales form .inputfield .input:focus , main .analyse .sales form .inputfield-admin .input:focus{
+  main .analyse .sales form .inputfield .input:focus{
     border: 1px solid #003996;
   }
   
-  main .analyse .sales form .inputfield p,  main .analyse .sales form .inputfield-admin p{
+  main .analyse .sales form .inputfield p{
      font-size: 14px;
      color: #757575;
   }

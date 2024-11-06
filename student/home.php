@@ -53,6 +53,18 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
 
     <script>
         $(document).ready(function(){
+            $(".hamburger .hamburger__inner").click(function(){
+                $(".wrapper").toggleClass("active");
+            });
+            $(".top_navbar .fas").click(function(){
+                $(".profile_dd").toggleClass("active");
+            });
+
+            $(document).click(function(event) {
+        if (!$(event.target).closest('.top_navbar .fas').length && !$(event.target).closest('.profile_dd').length) {
+            $(".profile_dd").removeClass("active");
+        }
+    });
     // Set profile image on load
     const profileImageElement = document.getElementById("profile");
     profileImageElement.src = "<?php echo $imagePath; ?>";
@@ -91,6 +103,7 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
     // Expose the function globally so it can be called in the HTML
     window.upvoteComplaint = upvoteComplaint;
 });
+
 
     </script>
     <style>
@@ -168,26 +181,7 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
                     </div>
             </div>
         </div>
-        <div class="top_navbar">
-    <div class="hamburger">
-        <div class="hamburger__inner">
-            <div class="one"></div>
-            <div class="two"></div>
-            <div class="three"></div>
-        </div>
-    </div>
-    <div class="menu">
-        <div class="logo">Home</div>
-        <div class="right_menu">
-            <ul>
-                <li>
-                    <!-- Add the logout button here -->
-                    <button onclick="window.location.href='../logout.php'" class="logout-btn">Logout</button>
-                </li>
-            </ul>
-        </div>
-    </div>
-</div>
+        
 
         <div class="main_container">
             <div class="sidebar">
@@ -219,6 +213,7 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
                     while ($row = mysqli_fetch_assoc($result1)) {
                         $issueId = $row['issue_id'];
                         $isUpvoted = in_array($issueId, $userVotes);
+                        if ($row['image_path'] == null) $row['image_path']='../Cimg/complaint.png';
                         echo '<div class="post">';
                         echo '<img src='.$row['image_path'].'>';
                         echo '<h3>' . htmlspecialchars($row['type']) . '</h3>';

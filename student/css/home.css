@@ -88,8 +88,8 @@
 
 .top_navbar .menu .right_menu ul li .profile_dd{
   position: absolute;
-  top: 35px;
-  right: -10px;
+  top: 50px;
+  right: 50px;
   background: #fff;
   box-shadow: 0 0 2px rgba(0,0,0,0.5);
   padding: 10px 0;
