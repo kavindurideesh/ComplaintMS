@@ -70,34 +70,30 @@ if (isset($_POST['submit_location'])) {
     }
 }
 if (isset($_POST['add_complaint_type'])) {
-    $type = $_POST['complaint_type'];
-
+    $type = mysqli_real_escape_string($con, $_POST['complaint_type']);
+    $admin_type = mysqli_real_escape_string($con, $_POST['admin_type']);
 
     $check_query = "SELECT * FROM complaint_type WHERE type = '$type'";
     $check_result = mysqli_query($con, $check_query);
 
     if ($check_result) {
-
         if (mysqli_num_rows($check_result) > 0) {
-
-            echo "<script>alert('type already exists'); </script>";
+            echo "<script>alert('Type already exists');</script>";
         } else {
-
-            $insert_query = "INSERT INTO complaint_type (type) VALUES ('$type')";
+            $insert_query = "INSERT INTO complaint_type (type, admin_type) VALUES ('$type', '$admin_type')";
             if (mysqli_query($con, $insert_query)) {
-
-                echo "tupe added successfully.";
+                echo "<script>alert('Type added successfully.');</script>";
                 header("location:settings.php");
+                exit;
             } else {
-
                 echo "Error: " . mysqli_error($con);
             }
         }
     } else {
-
         echo "Error: " . mysqli_error($con);
     }
 }
+
 
 if (isset($_GET['delete_location'])) {
     $location_id = $_GET['delete_location'];
@@ -304,6 +300,7 @@ if (isset($_GET['delete_type'])) {
                     <thead>
                         <tr>
                             <th>Type</th>
+                            <th>Admin</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -315,6 +312,7 @@ if (isset($_GET['delete_type'])) {
                                 echo "<tr>";
 
                                 echo "<td>" . $row["type"] . "</td>";
+                                echo "<td>" . $row["admin_type"] . "</td>";
                                 echo "<td><a href='settings.php?delete_type=" . $row["type_id"] . "'>Delete</a></td>";
                                 echo "</tr>";
                             }
