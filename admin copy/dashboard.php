@@ -17,6 +17,8 @@ include("../connection.php");
 $query = "SELECT * FROM user_profiles WHERE user_id = '$user'";
 $result = mysqli_query($con, $query);
 
+
+
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $imagePath = $row['path'];
@@ -29,6 +31,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $name = $row['name'];
 }
+
+
 
 $queryUnresolved = "SELECT COUNT(*) as unresolvedCount FROM complaints WHERE status = 'unresolved'";
 $resultUnresolved = mysqli_query($con, $queryUnresolved);
@@ -71,11 +75,13 @@ if (isset($_GET['id'])) {
                 echo mysqli_error($con);
             }
 
+
+
             $queryupdate = "UPDATE complaints set status='resolved' where issue_id='$id'";
             $resultupdate = mysqli_query($con,$queryupdate);
 
             if(!($resultupdate)){
-            echo mysqli_error($con);
+               echo mysqli_error($con);
             }
         }
         $urlWithoutId = strtok($_SERVER['REQUEST_URI'], '?');
@@ -97,7 +103,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="admin123.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
     <link rel = "stylesheet" href="popupstyle123.css" >
-    <title>Staff-Dashboard</title>
+    <title>Admin-Dashboard</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
 
     <style>
@@ -179,6 +185,18 @@ document.addEventListener('DOMContentLoaded', function() {
                     </span>
                     <h3> Profile</h3>
                 </a>
+                <a href="manage.php">
+                    <span class="material-icons-sharp">
+                        manage_accounts
+                    </span>
+                    <h3> Manage Users</h3>
+                </a>
+                <a href="settings.php">
+                    <span class="material-icons-sharp">
+                        settings
+                    </span>
+                    <h3>settings</h3>
+                </a>
                 <a href="reports.php">
                     <span class="material-icons-sharp">
                         report_gmailerrorred
@@ -189,7 +207,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="material-icons-sharp">
                         person_add
                     </span>
-                    <h3>Create Complaint</h3>
+                    <h3>Create Users</h3>
                 </a>
                 <a href="../logout.php">
                     <span class="material-icons-sharp">
@@ -256,6 +274,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <h3>Unresolved Complaints</h3>
                             <h1 class="h"><?php echo $unresolvedCount ;?></h1>
                         </div>
+                       
                     </div>
                 </div>
             </div>
@@ -272,7 +291,6 @@ document.addEventListener('DOMContentLoaded', function() {
                             <th>Type</th>
                             <th>Issue</th>
                             <th>Status</th>
-                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -296,7 +314,6 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <td><?php echo $row["type"]; ?></td>
                                 <td><?php echo $row["issue"]; ?></td>
                                 <td><?php echo $row["status"]; ?></td>
-                              <td style="text-align:center;"><button class="button" id="toggleButton">Change Status</button></td>
                             </tr>
                         <?php }
 

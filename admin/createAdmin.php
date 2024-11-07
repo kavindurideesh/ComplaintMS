@@ -41,7 +41,7 @@ if (isset($_POST['createuser'])) {
     $password = $_POST['password'];
     $role = $_POST['role'];
 
-    
+
     $result = createUser($username, $name, $email, $password, $role);
 
     if ($result) {
@@ -66,18 +66,18 @@ if (isset($_POST['createuser'])) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="admin123.css">
     <!-- <link rel = "stylesheet" href="popupstyle.css" > -->
-    
+
     <title>Admin-Create User</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
     <style>
         main .recent-orders .form1 button,
-main .recent-orders .p-3 button{
-    background-color: var(--color-primary);
-    color: white;
-    border-radius: 4px;
-    padding: 2px;
-    margin-left: 5px;
-}
+        main .recent-orders .p-3 button {
+            background-color: var(--color-primary);
+            color: white;
+            border-radius: 4px;
+            padding: 2px;
+            margin-left: 5px;
+        }
     </style>
 </head>
 
@@ -125,13 +125,13 @@ main .recent-orders .p-3 button{
                     </span>
                     <h3>Reports</h3>
                 </a>
-                <a href="create.php" class="active">
+                <a href="create.php">
                     <span class="material-icons-sharp">
                         person_add
                     </span>
                     <h3>Create Users</h3>
                 </a>
-                <a href="createAdmin.php">
+                <a href="createAdmin.php" class="active">
                     <span class="material-icons-sharp">
                         admin_panel_settings
                     </span>
@@ -199,25 +199,25 @@ main .recent-orders .p-3 button{
                             <input type="password" class="form-control" name="password" required>
                         </div>
 
-                        <!-- <div class="inputfield">
-                            <label for="role" class="form-label">Role :</label>
+                        <div class="inputfield">
+                            <label for="admin_type" class="form-label">Admin type :</label>
                             <div class="custom_select">
-                                <select class="form-select" name="role" required>
-                                    <option value="admin">Admin</option>
-                                    <option value="student">Student</option>
+                                <select class="form-select" name="admin_type" required>
+                                    <option value="HOD">Head Of the Department</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                    <option value="Network Manager">Network manager</option>
+                                    <option value="Instructor">Instructor</option>
+                                    <option value="Technical officer">Technical officer</option>
+                                    <option value="Laboratory Attendant">Laboratory attendant</option>
+                                    <option value="Staff Management Assistant">Staff management assistant</option>
                                 </select>
                             </div>
-                        </div> -->
-                
+                        </div>
+
                         <button type="submit" class="btn btn-primary" name="createuser">Create User</button>
                     </form>
                 </div>
             </div><br><br>
-               <h2>Upload Excel</h2>
-<form class="" action="" method="post" enctype="multipart/form-data">
-			<input type="file" name="excel" required value=""><span>(username,name,email,password,role)</span>
-			<button type="submit" name="import">Import</button>
-		</form>
         </main>
         <!-- End of Main Content -->
     </div>
@@ -228,57 +228,53 @@ main .recent-orders .p-3 button{
 </body>
 
 </script>
-         if(window.history.replaceState){
-                window.history.replaceState(null,null,window.location.href);
-            }</script>
+if(window.history.replaceState){
+window.history.replaceState(null,null,window.location.href);
+}</script>
 
 </html>
 <?php
 include("../connection.php");
-		if(isset($_POST["import"])){
-			$fileName = $_FILES["excel"]["name"];
-			$fileExtension = explode('.', $fileName);
-       $fileExtension = strtolower(end($fileExtension));
-			$newFileName = date("Y.m.d") . " - " . date("h.i.sa") . "." . $fileExtension;
+if (isset($_POST["import"])) {
+    $fileName = $_FILES["excel"]["name"];
+    $fileExtension = explode('.', $fileName);
+    $fileExtension = strtolower(end($fileExtension));
+    $newFileName = date("Y.m.d") . " - " . date("h.i.sa") . "." . $fileExtension;
 
-			$targetDirectory = "uploads/" . $newFileName;
-			move_uploaded_file($_FILES['excel']['tmp_name'], $targetDirectory);
+    $targetDirectory = "uploads/" . $newFileName;
+    move_uploaded_file($_FILES['excel']['tmp_name'], $targetDirectory);
 
-			error_reporting(0);
-			ini_set('display_errors', 0);
+    error_reporting(0);
+    ini_set('display_errors', 0);
 
-			require 'excelReader/excel_reader2.php';
-			require 'excelReader/SpreadsheetReader.php';
+    require 'excelReader/excel_reader2.php';
+    require 'excelReader/SpreadsheetReader.php';
 
-			$reader = new SpreadsheetReader($targetDirectory);
-			foreach($reader as $key => $row){
-				$username = $row[0];
-				$name = $row[1];
-				$email = $row[2];
-                $password = $row[3];
-                $role = $row[4];
+    $reader = new SpreadsheetReader($targetDirectory);
+    foreach ($reader as $key => $row) {
+        $username = $row[0];
+        $name = $row[1];
+        $email = $row[2];
+        $password = $row[3];
+        $role = $row[4];
 
-				if(mysqli_query($con, "INSERT INTO users VALUES('', '$username', '$name', '$email','$password','$role','active')")){
-                    echo
-                    "
+        if (mysqli_query($con, "INSERT INTO users VALUES('', '$username', '$name', '$email','$password','$role','active')")) {
+            echo
+            "
                     <script>
                     alert('Succesfully Imported');
                     document.location.href = '';
                     </script>
                     ";
-                }
-                else{
-                    echo
-                    "
+        } else {
+            echo
+            "
                     <script>
                     alert('Import failed');
                     document.location.href = '';
                     </script>
                     ";
-                }
-			}
-
-			
-		}
-		?>
-        
+        }
+    }
+}
+?>

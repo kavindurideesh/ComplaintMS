@@ -53,35 +53,35 @@ $totalCount = $unresolvedCount + $solvedCount;
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     include('connection.php');
-    if(isset($_POST["comment"]) && isset($_POST["name"]) ){
+    if (isset($_POST["comment"]) && isset($_POST["name"])) {
         $comment = $_POST["comment"];
-        $name =$_POST["name"];
+        $name = $_POST["name"];
 
 
-    $query = "SELECT * from complaints where issue_id=$id";
+        $query = "SELECT * from complaints where issue_id=$id";
 
-        $result = mysqli_query($con,$query);
+        $result = mysqli_query($con, $query);
 
-        while($row = mysqli_fetch_assoc($result)){
+        while ($row = mysqli_fetch_assoc($result)) {
             $issue_id = $row['issue_id'];
             $user_id = $row['user_id'];
 
             $date = date('Y-m-d');
             $queryinsert = "INSERT into resolved_complaints (issue_id,user_id,date_solved,comments,resolved_by) values('$issue_id','$user_id','$date','$comment','$name')";
 
-            $result2 = mysqli_query($con,$queryinsert);
+            $result2 = mysqli_query($con, $queryinsert);
 
-            if(!($result2)){
+            if (!($result2)) {
                 echo mysqli_error($con);
             }
 
 
 
             $queryupdate = "UPDATE complaints set status='resolved' where issue_id='$id'";
-            $resultupdate = mysqli_query($con,$queryupdate);
+            $resultupdate = mysqli_query($con, $queryupdate);
 
-            if(!($resultupdate)){
-               echo mysqli_error($con);
+            if (!($resultupdate)) {
+                echo mysqli_error($con);
             }
         }
         $urlWithoutId = strtok($_SERVER['REQUEST_URI'], '?');
@@ -102,28 +102,28 @@ if (isset($_GET['id'])) {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="admin123.css">
     <script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
-    <link rel = "stylesheet" href="popupstyle123.css" >
+    <link rel="stylesheet" href="popupstyle123.css">
     <title>Admin-Dashboard</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
 
     <style>
-        main .analyse{
+        main .analyse {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.6rem;
         }
 
-        .h{
+        .h {
             font-weight: 800;
             font-size: 1.8rem;
             display: flex;
             color: var(--color-dark);
         }
 
-        main{
+        main {
             margin-top: 0rem;
         }
-        
+
         main .nav {
             display: flex;
             gap: 2rem;
@@ -132,33 +132,33 @@ if (isset($_GET['id'])) {
             align-items: center;
             margin-top: -4rem;
         }
-
     </style>
 </head>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  
-    function togglePopup() {
-        var blur = document.getElementById('blur');
-        blur.style.filter = 'blur(200px)';
-        blur.style.pointerEvents = 'none';
-        blur.style.userSelect = 'none';
+    document.addEventListener('DOMContentLoaded', function() {
 
-        var popup = document.getElementById('popup');
-        popup.style.visibility = 'visible';
-        popup.style.opacity = '1';
-        popup.style.transition = '0.5s';
-        popup.style.top = '50%';
-    }
+        function togglePopup() {
+            var blur = document.getElementById('blur');
+            blur.style.filter = 'blur(200px)';
+            blur.style.pointerEvents = 'none';
+            blur.style.userSelect = 'none';
 
-    
+            var popup = document.getElementById('popup');
+            popup.style.visibility = 'visible';
+            popup.style.opacity = '1';
+            popup.style.transition = '0.5s';
+            popup.style.top = '50%';
+        }
 
 
-    var toggleButton = document.getElementById('toggleButton');
-    toggleButton.addEventListener('click', togglePopup);
-});   
-    </script>
+
+
+        var toggleButton = document.getElementById('toggleButton');
+        toggleButton.addEventListener('click', togglePopup);
+    });
+</script>
+
 <body>
 
     <div class="container" id="blur">
@@ -209,6 +209,12 @@ document.addEventListener('DOMContentLoaded', function() {
                     </span>
                     <h3>Create Users</h3>
                 </a>
+                <a href="createAdmin.php">
+                    <span class="material-icons-sharp">
+                        admin_panel_settings
+                    </span>
+                    <h3>Create Admin</h3>
+                </a>
                 <a href="../logout.php">
                     <span class="material-icons-sharp">
                         logout
@@ -243,7 +249,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src="<?php echo $imagePath;?>">>
+                        <img src="<?php echo $imagePath; ?>">>
                     </div>
                 </div>
 
@@ -254,27 +260,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     <div class="status">
                         <div class="info">
                             <h3>Total Complaints</h3>
-                            <h1 class="h"><?php echo $totalCount ;?></h1>
+                            <h1 class="h"><?php echo $totalCount; ?></h1>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="visits">
                     <div class="status">
                         <div class="info">
                             <h3>Resolved Complaints</h3>
-                            <h1 class="h"><?php echo $solvedCount ;?></h1>
+                            <h1 class="h"><?php echo $solvedCount; ?></h1>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="searches">
                     <div class="status">
                         <div class="info">
                             <h3>Unresolved Complaints</h3>
-                            <h1 class="h"><?php echo $unresolvedCount ;?></h1>
+                            <h1 class="h"><?php echo $unresolvedCount; ?></h1>
                         </div>
-                       
+
                     </div>
                 </div>
             </div>
@@ -320,44 +326,44 @@ document.addEventListener('DOMContentLoaded', function() {
                         ?>
                     </tbody>
                 </table>
-               
+
             </div>
         </main>
         <!-- End of Main Content -->
 
-        
 
 
-        </div>
+
+    </div>
 
 
     </div>
 
     <div id="popup">
         <div id="closePopup">
-            <i class="fas fa-xmark" >X</i>
+            <i class="fas fa-xmark">X</i>
         </div>
-    <form method="post" action="dashboard.php?id=<?php echo $id ?>">
-        <h1>ADD COMMENT</h1>
-        <label for="name">Resolved by</label><br>
-        <input type="text" name="name" value="" required>
-        <label for="cmt">Comment of issue</label><br>
-        <textarea name="comment" id="cmt" required></textarea> <br><br>
-        <input type="submit" class="btn" name="submit" value="ADD">
-    </form>
-</div>
+        <form method="post" action="dashboard.php?id=<?php echo $id ?>">
+            <h1>ADD COMMENT</h1>
+            <label for="name">Resolved by</label><br>
+            <input type="text" name="name" value="" required>
+            <label for="cmt">Comment of issue</label><br>
+            <textarea name="comment" id="cmt" required></textarea> <br><br>
+            <input type="submit" class="btn" name="submit" value="ADD">
+        </form>
+    </div>
     <script>
-        function popupClose(){
+        function popupClose() {
             var popup = document.getElementById('popup');
             var blur = document.getElementById('blur');
-            blur.style.filter="none";
+            blur.style.filter = "none";
             popup.style.visibility = 'hidden';
             blur.style.pointerEvents = 'unset';
-             blur.style.userSelect = 'unset';
+            blur.style.userSelect = 'unset';
             console.log("Hello")
         }
         const closePopup = document.getElementById("closePopup");
-        closePopup.addEventListener("click",popupClose)
+        closePopup.addEventListener("click", popupClose)
     </script>
     <script src="index.js"></script>
 

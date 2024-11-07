@@ -47,11 +47,11 @@ if ($result && mysqli_num_rows($result) > 0) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp" rel="stylesheet">
     <link rel="stylesheet" href="admin123.css">
-    <link rel="stylesheet" href="popupstyle.css">
+    <link rel = "stylesheet" href="popupstyle.css" >
     <title>Admin-Reports</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
-
-
+   
+        
 </head>
 
 
@@ -106,12 +106,6 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </span>
                     <h3>Create Users</h3>
                 </a>
-                <a href="createAdmin.php">
-                    <span class="material-icons-sharp">
-                        admin_panel_settings
-                    </span>
-                    <h3>Create Admin</h3>
-                </a>
                 <a href="../logout.php">
                     <span class="material-icons-sharp">
                         logout
@@ -124,7 +118,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 
         <!-- Main Content -->
         <main>
-            <h1>REPORTS</h1>
+        <h1>REPORTS</h1>
             <div class="nav">
                 <button id="menu-btn">
                     <span class="material-icons-sharp">
@@ -150,74 +144,74 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </div>
                 </div>
             </div>
-
-            <div class="recent-orders">
+      
+                <div class="recent-orders">
 
                 <h2>Solved Issues</h2>
 
-                <table id="complaint">
+    <table id="complaint" >
 
-                    <tr>
-                        <thead>
-                            <th>USER_NAME</th>
-                            <th>LOCATION</th>
-                            <th>TYPE</th>
-                            <th>ISSUE</th>
-                            <th>DATE_REGISTERED</th>
-                            <th>DATE_SOLVED</th>
-                            <th>COMMENTS</th>
-                            <th>RESOLVED_BY</th>
+    <tr>
+         <thead>
+            <th>USER_NAME</th>
+            <th>LOCATION</th>
+            <th>TYPE</th>
+            <th>ISSUE</th>
+            <th>DATE_REGISTERED</th>
+            <th>DATE_SOLVED</th>
+            <th>COMMENTS</th>
+            <th>RESOLVED_BY</th>
 
-                    </tr>
-                    </thead>
-                    <tbody>
+        </tr>
+        </thead>
+        <tbody>
 
-                        <?php
-
-
-                        include('../connection.php');
+        <?php
 
 
-                        $query = "SELECT u.user_name,c.contact,c.location,c.type,c.issue,c.date,date_solved,c.serial,r.comments,r.resolved_by
+            include('../connection.php');
+
+
+            $query = "SELECT u.user_name,c.contact,c.location,c.type,c.issue,c.date,date_solved,c.serial,r.comments,r.resolved_by
             from complaints as c , resolved_complaints as r , users as u
             where (c.issue_id=r.issue_id and u.user_id=r.user_id) order by date desc";
 
 
-                        if ($result = mysqli_query($con, $query)) {
+            if($result = mysqli_query($con,$query)){
 
-                            while ($row = mysqli_fetch_assoc($result)) {
-                        ?>
+            while($row = mysqli_fetch_assoc($result)){
+                ?>
 
 
-                                <tr>
+    <tr>
 
-                                    <td><?php echo $row["user_name"] . "<br>"; ?></td>
-                                    <td><?php echo $row["location"] . "<br>"; ?></td>
-                                    <td> <?php echo $row["type"] . "<br>"; ?></td>
-                                    <td><?php echo $row["issue"] . "<br>"; ?></td>
-                                    <td><?php echo $row["date"] . "<br>"; ?></td>
-                                    <td><?php echo $row["date_solved"] . "<br>"; ?></td>
-                                    <td><?php echo $row["comments"] . "<br>" . "<br>"; ?></td>
-                                    <td><?php echo $row["resolved_by"] . "<br>" . "<br>"; ?></td>
-                                </tr>
+                <td><?php echo $row["user_name"]."<br>"; ?></td>
+                <td><?php echo $row["location"]."<br>"; ?></td>
+                <td> <?php echo $row["type"]."<br>"; ?></td>
+                <td><?php echo $row["issue"]."<br>"; ?></td>
+                <td><?php echo $row["date"]."<br>"; ?></td>
+                <td><?php echo $row["date_solved"]."<br>"; ?></td>
+                <td><?php echo $row["comments"]."<br>"."<br>"; ?></td>
+                <td><?php echo $row["resolved_by"]."<br>"."<br>"; ?></td>
+            </tr>
 
-                        <?php
-                            }
-                        }
+        <?php
+            }
+        }
 
-                        ?>
-                    </tbody>
-                </table>
+        ?>
+        </tbody>
+        </table>
 
-            </div>
+</div>
 
         </main
 
 
-            </div>
+    </div>
 
 
-        <script src="index.js"></script>
+    <script src="index.js"></script>
 
 </body>
 
