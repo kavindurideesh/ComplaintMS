@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
     <form method="post" action="dashboard.php?id=<?php echo $id ?>">
         <h1>ADD COMMENT</h1>
         <label for="name">Resolved by</label><br>
-        <input type="text" name="name" value="" required>
+        <input type="text" name="name" value=<?php echo $name;?> required>
         <label for="cmt">Comment of issue</label><br>
         <textarea name="comment" id="cmt" required></textarea> <br><br>
         <input type="submit" class="btn" name="submit" value="ADD">

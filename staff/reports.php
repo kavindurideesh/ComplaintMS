@@ -148,7 +148,6 @@ if ($result && mysqli_num_rows($result) > 0) {
             <th>DATE_REGISTERED</th>
             <th>DATE_SOLVED</th>
             <th>COMMENTS</th>
-            <th>RESOLVED_BY</th>
 
         </tr>
         </thead>
@@ -160,9 +159,9 @@ if ($result && mysqli_num_rows($result) > 0) {
             include('../connection.php');
 
 
-            $query = "SELECT u.user_name,c.contact,c.location,c.type,c.issue,c.date,date_solved,c.serial,r.comments,r.resolved_by
-            from complaints as c , resolved_complaints as r , users as u
-            where (c.issue_id=r.issue_id and u.user_id=r.user_id) order by date desc";
+            $query = "SELECT u.user_name,c.contact,c.location,l.location_name,x.type,c.issue,c.date,date_solved,c.serial,r.comments,r.resolved_by
+            from complaints as c , resolved_complaints as r , users as u, location as l, complaint_type as x
+            where (c.issue_id=r.issue_id and u.user_id=r.user_id and r.resolved_by='$name' and c.location = l.location_id and x.type_id=c.type) order by date desc";
 
 
             if($result = mysqli_query($con,$query)){
@@ -174,13 +173,12 @@ if ($result && mysqli_num_rows($result) > 0) {
     <tr>
 
                 <td><?php echo $row["user_name"]."<br>"; ?></td>
-                <td><?php echo $row["location"]."<br>"; ?></td>
+                <td><?php echo $row["location_name"]."<br>"; ?></td>
                 <td> <?php echo $row["type"]."<br>"; ?></td>
                 <td><?php echo $row["issue"]."<br>"; ?></td>
                 <td><?php echo $row["date"]."<br>"; ?></td>
                 <td><?php echo $row["date_solved"]."<br>"; ?></td>
                 <td><?php echo $row["comments"]."<br>"."<br>"; ?></td>
-                <td><?php echo $row["resolved_by"]."<br>"."<br>"; ?></td>
             </tr>
 
         <?php
