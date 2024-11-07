@@ -6,7 +6,7 @@ ob_start();
 session_start();
 
 // Ensure only admins can access this page
-if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
+if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'staff')) {
     header("location:../login.php");
     exit;
 }
