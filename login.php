@@ -12,7 +12,13 @@ if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 'admin') {
         header("location:admin/dashboard.php");
         exit;
-    } else {
+    } 
+    elseif($_SESSION['role'] == 'staff')
+    {
+        header("location:staff/dashboard.php");
+        exit;
+    }
+    else {
         header("location:student/home.php");
         exit;
     }

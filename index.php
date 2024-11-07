@@ -4,6 +4,12 @@
         if($_SESSION['role']=='admin'){
             header("location:admin/dashboard.php");
             exit;}
+
+            elseif($_SESSION['role'] == 'staff')
+            {
+                header("location:staff/dashboard.php");
+                exit;
+            }
     
     else if($_SESSION['role']=='student') {
         header("location:student/home.php");
