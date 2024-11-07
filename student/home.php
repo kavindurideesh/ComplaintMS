@@ -118,6 +118,7 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
             background: #fff;
             padding: 30px 20px;
             text-align: center;
+            max-width: 400px;
         }
         .post h3 {
             margin: 0 0 10px;
@@ -202,7 +203,6 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
                         <li><a href="password.php"><span class="icon"><i class="ri-key-2-fill"></i></span><span class="title">Change Password</span></a></li>
                         <li><a href="complaint.php"><span class="icon"><i class="ri-add-circle-fill"></i></span><span class="title">Add Complaint</span></a></li>
                         <li><a href="history.php"><span class="icon"><i class="ri-check-double-line"></i></span><span class="title">Your Complaints</span></a></li>
-                        <li><a href="../logout.php"><span class="icon"><i class="ri-check-double-line"></i></span><span class="title">Log Out</span></a></li>
 
                     </ul>
                 </div>

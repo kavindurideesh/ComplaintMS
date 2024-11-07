@@ -40,7 +40,7 @@ $resultLocations = mysqli_query($con, $queryLocations);
 $queryComplaintTypes = "SELECT * FROM complaint_type";
 $resultComplaintTypes = mysqli_query($con, $queryComplaintTypes);
 
-$staffTypesQuery = "SELECT * FROM admin_types";
+$staffTypesQuery = "SELECT DISTINCT admin_type FROM admin_types";
 $resultStaffTypes = mysqli_query($con,$staffTypesQuery);
 
 if (isset($_POST['submit_location'])) {
