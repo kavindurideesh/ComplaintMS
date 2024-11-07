@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 02:58 PM
+-- Generation Time: Nov 07, 2024 at 04:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,7 +37,9 @@ CREATE TABLE `admin_types` (
 --
 
 INSERT INTO `admin_types` (`admin_id`, `admin_type`) VALUES
-(33, 'HOD');
+(33, 'HOD'),
+(35, 'Lecturer'),
+(36, 'Lecturer');
 
 -- --------------------------------------------------------
 
@@ -68,8 +70,18 @@ CREATE TABLE `complaints` (
   `issue` varchar(400) NOT NULL,
   `serial` int(30) DEFAULT NULL,
   `status` varchar(20) NOT NULL,
+  `image_path` varchar(70) DEFAULT NULL,
   `up_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`issue_id`, `user_id`, `user_name`, `contact`, `location`, `type`, `date`, `issue`, `serial`, `status`, `image_path`, `up_count`) VALUES
+(10, 12, 'student', 464534534, 'csl2', 'Network Issues', '2024-11-07', 'dfdfd', 3, 'unresolved', '../Cimg/complaint.png', 0),
+(11, 12, 'student', 464534534, 'csl2', 'sdfdfd', '2024-11-28', 'dsads', 34, 'unresolved', '../Cimg/complaint.png', 0),
+(12, 12, 'student', 464534534, 'csl2', 'sdfdfd', '2024-11-07', 'fsf', 345, 'unresolved', '../Cimg/complaint.png', 0);
 
 -- --------------------------------------------------------
 
@@ -88,7 +100,9 @@ CREATE TABLE `complaint_type` (
 --
 
 INSERT INTO `complaint_type` (`type_id`, `type`, `admin_type`) VALUES
-(7, 'Network Issues', 'HOD');
+(8, 'Network Issues', 'HOD'),
+(9, 'sdfdfd', 'Lecturer'),
+(10, 'fdfdf', 'Lecturer');
 
 -- --------------------------------------------------------
 
@@ -167,7 +181,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`user_id`, `user_name`, `name`, `email`, `password`, `role`, `status`) VALUES
 (11, 'MAIN_ADMIN', 'mainadmin', 'mainadmin@gmail.com', '$2y$10$A.z.YEDFdfb84A/hIqIo/eY3tm648Jk0wr6If8cbVGaQQGWV0rD2G', 'admin', 'active'),
 (12, 'student', 'student', 'student@gmail.com', '$2y$10$U/HB9Et4N12Wb/pyJaouZ.XLu/xL5Xk.zlwUeSV7ZqootDbduR3Pi', 'student', 'active'),
-(33, 'staffTypetest', 'staff_01', 'staff_01@gmail.com', '$2y$10$Ea0Qda/LdqDTp972Md57xujn6nMmACrqcyrAaczKUdlho9VYDbORK', 'staff', 'active');
+(33, 'staffTypetest', 'staff_01', 'staff_01@gmail.com', '$2y$10$Ea0Qda/LdqDTp972Md57xujn6nMmACrqcyrAaczKUdlho9VYDbORK', 'staff', 'active'),
+(35, 'staff1', 'staff1', 'staff1@gmail.com', '$2y$10$QKw1Umih/NwAltbkp4breuXv2zdk8lakhD4S8j9o97LsD43HYN1zS', 'staff', 'active'),
+(36, 'staff2', 'staff2', 'staff2@gmail.com', '$2y$10$Ldh0WymbH.0lZe60zhsJ7Olz1w/6HxdKb44gmE6MFSFEnv7k.lAii', 'staff', 'active');
 
 -- --------------------------------------------------------
 
@@ -273,13 +289,13 @@ ALTER TABLE `votes`
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `issue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `issue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `complaint_type`
 --
 ALTER TABLE `complaint_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -303,7 +319,7 @@ ALTER TABLE `stmp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `user_profiles`

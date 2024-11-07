@@ -17,7 +17,7 @@ include("../connection.php");
 $query = "SELECT * FROM user_profiles WHERE user_id = '$user'";
 $result = mysqli_query($con, $query);
 
-// get staff type
+
 
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
@@ -32,13 +32,14 @@ if ($result && mysqli_num_rows($result) > 0) {
     $name = $row['name'];
 }
 
-$queryUnresolved = "SELECT COUNT(*) as unresolvedCount FROM complaints WHERE status = 'unresolved'";
+$admin_id = $_SESSION['user_id'];
+$queryUnresolved = "SELECT COUNT(*) as unresolvedCount FROM complaints WHERE status = 'unresolved' AND type IN (SELECT type FROM complaint_type WHERE complaint_type.admin_type = (SELECT admin_type FROM admin_types WHERE admin_id ='$admin_id'))";
 $resultUnresolved = mysqli_query($con, $queryUnresolved);
 $rowUnresolved = mysqli_fetch_assoc($resultUnresolved);
 $unresolvedCount = $rowUnresolved['unresolvedCount'];
 
 // Find the number of solved complaints
-$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'resolved'";
+$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'solved' AND type IN (SELECT type FROM complaint_type WHERE complaint_type.admin_type = (SELECT admin_type FROM admin_types WHERE admin_id ='$admin_id'))";
 $resultSolved = mysqli_query($con, $querySolved);
 $rowSolved = mysqli_fetch_assoc($resultSolved);
 $solvedCount = $rowSolved['solvedCount'];
@@ -283,7 +284,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         $query = "SELECT users.name AS name, complaints.user_name, complaints.issue_id, complaints.contact, complaints.date, complaints.type,
                          complaints.status, complaints.issue FROM users INNER JOIN complaints ON users.user_id = complaints.user_id WHERE
-                          complaints.status = 'unresolved';";
+                          complaints.status = 'unresolved' 
+                          AND complaints.type IN (SELECT type FROM complaint_type WHERE admin_type = (SELECT admin_type FROM admin_types WHERE admin_id ='$admin_id'));";
 
                         $result = mysqli_query($con, $query);
 
