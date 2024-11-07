@@ -202,6 +202,8 @@ if ($profileResult && mysqli_num_rows($profileResult) > 0) {
                         <li><a href="password.php"><span class="icon"><i class="ri-key-2-fill"></i></span><span class="title">Change Password</span></a></li>
                         <li><a href="complaint.php"><span class="icon"><i class="ri-add-circle-fill"></i></span><span class="title">Add Complaint</span></a></li>
                         <li><a href="history.php"><span class="icon"><i class="ri-check-double-line"></i></span><span class="title">Your Complaints</span></a></li>
+                        <li><a href="../logout.php"><span class="icon"><i class="ri-check-double-line"></i></span><span class="title">Log Out</span></a></li>
+
                     </ul>
                 </div>
             </div>
