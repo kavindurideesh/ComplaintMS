@@ -17,6 +17,8 @@ include("../connection.php");
 $query = "SELECT * FROM user_profiles WHERE user_id = '$user'";
 $result = mysqli_query($con, $query);
 
+// get staff type
+
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $imagePath = $row['path'];

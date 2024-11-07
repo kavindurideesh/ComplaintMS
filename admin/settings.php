@@ -40,6 +40,9 @@ $resultLocations = mysqli_query($con, $queryLocations);
 $queryComplaintTypes = "SELECT * FROM complaint_type";
 $resultComplaintTypes = mysqli_query($con, $queryComplaintTypes);
 
+$staffTypesQuery = "SELECT * FROM admin_types";
+$resultStaffTypes = mysqli_query($con,$staffTypesQuery);
+
 if (isset($_POST['submit_location'])) {
     $location_name = mysqli_real_escape_string($con, $_POST['location_name']);
 
@@ -71,6 +74,7 @@ if (isset($_POST['submit_location'])) {
 }
 if (isset($_POST['add_complaint_type'])) {
     $type = $_POST['complaint_type'];
+    $staff_type = $_POST['staff_type'];
 
 
     $check_query = "SELECT * FROM complaint_type WHERE type = '$type'";
@@ -83,7 +87,7 @@ if (isset($_POST['add_complaint_type'])) {
             echo "<script>alert('type already exists'); </script>";
         } else {
 
-            $insert_query = "INSERT INTO complaint_type (type) VALUES ('$type')";
+            $insert_query = "INSERT INTO complaint_type (type,admin_type) VALUES ('$type','$staff_type')";
             if (mysqli_query($con, $insert_query)) {
 
                 echo "tupe added successfully.";
@@ -285,12 +289,31 @@ if (isset($_GET['delete_type'])) {
                 <form class="form1" method="POST" action="settings.php">
                     <label for="complaint_type">Complaint Type :</label>
                     <input type="text" id="complaint_type" name="complaint_type" required>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php
+                    if(mysqli_num_rows($resultStaffTypes) > 0)
+                    {
+                        echo "<label for='staff_type'>Add Superviser Type :</label>";
+                        echo "<select name='staff_type' id='staff_type'>";
+                        while($row = mysqli_fetch_assoc($resultStaffTypes))
+                        {
+                            echo '<option value="'.$row["admin_type"]. '" required>'.$row["admin_type"].'</option>';
+                        }
+                        echo "</select>";
+                    }
+                    else
+                    {
+                        echo "No Staff types to choose";
+                    }
+                    ?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit" class="btn btn-primary" name="add_complaint_type">Add Type</button>
                 </form>
                 <table>
                     <thead>
                         <tr>
                             <th>Type</th>
+                            <th>Staff Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -302,6 +325,7 @@ if (isset($_GET['delete_type'])) {
                                 echo "<tr>";
 
                                 echo "<td>" . $row["type"] . "</td>";
+                                echo "<td>" . $row["admin_type"] . "</td>";
                                 echo "<td><a href='settings.php?delete_type=" . $row["type_id"] . "'>Delete</a></td>";
                                 echo "</tr>";
                             }

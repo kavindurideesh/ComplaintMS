@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 07, 2024 at 01:18 PM
+-- Generation Time: Nov 07, 2024 at 02:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -82,6 +82,13 @@ CREATE TABLE `complaint_type` (
   `type` varchar(50) NOT NULL,
   `admin_type` enum('HOD','Lecturer','Network Manager','Instructor','Technical Officer','Laboratory Attendent','Staff Management Assistant') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaint_type`
+--
+
+INSERT INTO `complaint_type` (`type_id`, `type`, `admin_type`) VALUES
+(7, 'Network Issues', 'HOD');
 
 -- --------------------------------------------------------
 
@@ -272,7 +279,7 @@ ALTER TABLE `complaints`
 -- AUTO_INCREMENT for table `complaint_type`
 --
 ALTER TABLE `complaint_type`
-  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `type_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `location`
@@ -296,7 +303,7 @@ ALTER TABLE `stmp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `user_profiles`
