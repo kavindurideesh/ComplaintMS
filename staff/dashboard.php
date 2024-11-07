@@ -39,7 +39,7 @@ $rowUnresolved = mysqli_fetch_assoc($resultUnresolved);
 $unresolvedCount = $rowUnresolved['unresolvedCount'];
 
 // Find the number of solved complaints
-$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'solved' AND type IN (SELECT type FROM complaint_type WHERE complaint_type.admin_type = (SELECT admin_type FROM admin_types WHERE admin_id ='$admin_id'))";
+$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'resolved' AND type IN (SELECT type FROM complaint_type WHERE complaint_type.admin_type = (SELECT admin_type FROM admin_types WHERE admin_id ='$admin_id'))";
 $resultSolved = mysqli_query($con, $querySolved);
 $rowSolved = mysqli_fetch_assoc($resultSolved);
 $solvedCount = $rowSolved['solvedCount'];
