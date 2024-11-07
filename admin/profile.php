@@ -116,6 +116,7 @@ if (isset($_POST['upload'])) {
             overflow-x: hidden;
             color: var(--color-dark);
             background-color: var(--color-background);
+
         }
 
         h1 {
@@ -132,7 +133,7 @@ if (isset($_POST['upload'])) {
         aside {
             height: 100vh;
             width: 15rem;
-            margin-left: -9rem;
+            margin-left: -26rem;
         }
 
         aside .sidebar a {
