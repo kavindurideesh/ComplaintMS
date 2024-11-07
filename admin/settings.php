@@ -144,6 +144,9 @@ if (isset($_GET['delete_type'])) {
     <link rel="stylesheet" href="popupstyle.css">
     <title>Admin-Location Settings</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
+    <style>
+        label{padding-left: 5px;}
+    </style>
 </head>
 
 <script>
@@ -285,6 +288,16 @@ if (isset($_GET['delete_type'])) {
                 <form class="form1" method="POST" action="settings.php">
                     <label for="complaint_type">Complaint Type :</label>
                     <input type="text" id="complaint_type" name="complaint_type" required>
+                    <label for="admin_type"> Admin Type :</label>
+                    <select id="admin_type"required>
+                    <option value="HOD">Head Of the Department</option>
+                                    <option value="Lecturer">Lecturer</option>
+                                    <option value="Network Manager">Network manager</option>
+                                    <option value="Instructor">Instructor</option>
+                                    <option value="Technical officer">Technical officer</option>
+                                    <option value="Laboratory Attendant">Laboratory attendant</option>
+                                    <option value="Staff Management Assistant">Staff management assistant</option>
+                    </select>
                     <button type="submit" class="btn btn-primary" name="add_complaint_type">Add Type</button>
                 </form>
                 <table>
