@@ -39,18 +39,38 @@ if (isset($_POST['createuser'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
+    $role = 'admin';
+    $admin_type = $_POST['admin_type'];
 
+    // Sanitize and hash the password (optional but recommended)
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    $result = createUser($username, $name, $email, $password, $role);
+    // SQL query to insert the new user (excluding admin_type)
+    $sql_user = "INSERT INTO users (user_name, name, email, password, role,status) 
+                VALUES ('$username', '$name', '$email', '$hashed_password', '$role','active')";
 
-    if ($result) {
-        header("location: manage.php");
-        exit;
+    // Execute the user insertion query
+    if (mysqli_query($con, $sql_user)) {
+        // Retrieve the ID of the inserted user
+        $user_id = mysqli_insert_id($con);
+
+        // SQL query to insert into the admin_type table
+        $sql_admin_type = "INSERT INTO admin_types (admin_id, admin_type) 
+                           VALUES ('$user_id', '$admin_type')";
+
+        // Execute the admin_type insertion query
+        if (mysqli_query($con, $sql_admin_type)) {
+            // Redirect if both queries were successful
+            header("location: manage.php");
+            exit;
+        } else {
+            echo "Error inserting admin type: " . mysqli_error($con);
+        }
     } else {
-        echo mysqli_error($con);
+        echo "Error inserting user: " . mysqli_error($con);
     }
 }
+
 
 
 ?>
