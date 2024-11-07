@@ -2,7 +2,7 @@
   session_start();
     if(isset($_SESSION['user_id'])&& isset($_SESSION['role'])){
         if($_SESSION['role']=='admin'){
-            header("location:admin/dashboard.php");
+            header("location:staff/dashboard.php");
             exit;}
     
     else if($_SESSION['role']=='student') {

@@ -173,29 +173,17 @@ if (isset($_POST['upload'])) {
                         </span>
                         <h3> Profile</h3>
                     </a>
-                    <a href="manage.php">
-                        <span class="material-icons-sharp">
-                            manage_accounts
-                        </span>
-                        <h3> Manage Users</h3>
-                    </a>
-                    <a href="settings.php">
-                        <span class="material-icons-sharp">
-                            settings
-                        </span>
-                        <h3>Settings</h3>
-                    </a>
                     <a href="reports.php">
                         <span class="material-icons-sharp">
                             report_gmailerrorred
                         </span>
                         <h3>Reports</h3>
                     </a>
-                    <a href="createusers.php">
+                    <a href="create.php">
                         <span class="material-icons-sharp">
                             person_add
                             </span>
-                        <h3>Create Users</h3>
+                        <h3>Create Complaints</h3>
                     </a>
                     <a href="../logout.php">
                         <span class="material-icons-sharp">
