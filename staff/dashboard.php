@@ -315,7 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <td><?php echo $row["type"]; ?></td>
                                 <td><?php echo $row["issue"]; ?></td>
                                 <td><?php echo $row["status"]; ?></td>
-                                <td style="text-align:center;"><button class="button" id="toggleButton">Change Status</button></td>
+                              <td style="text-align:center;"><button class="button" id="toggleButton">Change Status</button></td>
                             </tr>
                         <?php }
 
