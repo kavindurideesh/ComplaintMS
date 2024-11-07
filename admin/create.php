@@ -39,7 +39,7 @@ if (isset($_POST['createuser'])) {
     $name = $_POST['name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
+    $role = 'student';
 
     
     $result = createUser($username, $name, $email, $password, $role);

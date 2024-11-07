@@ -107,44 +107,43 @@ if (isset($_POST['upload'])) {
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
 
     <style>
-        body {
-            width: 100vw;
-            height: 100vh;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.88rem;
-            user-select: none;
-            overflow-x: hidden;
-            color: var(--color-dark);
-            background-color: var(--color-background);
+        body{
+                width: 100vw;
+                height: 100vh;
+                font-family: 'Poppins', sans-serif;
+                font-size: 0.88rem;
+                user-select: none;
+                overflow-x: hidden;
+                color: var(--color-dark);
+                background-color: var(--color-background);
+            }
 
-        }
-
-        h1 {
-            font-weight: 800;
-            font-size: 1.8rem;
-        }
+            h1{
+                font-weight: 800;
+                font-size: 1.8rem;
+            }
 
 
-        h3 {
-            font-weight: 500;
-            font-size: 0.87rem;
-        }
+            h3{
+                font-weight: 500;
+                font-size: 0.87rem;
+            }
 
-        aside {
-            height: 100vh;
-            width: 15rem;
-            margin-left: -26rem;
-        }
+            aside{
+                height: 100vh;
+                width: 15rem;
+                margin-left: -9rem;
+            }
 
-        aside .sidebar a {
-            text-decoration: none;
-        }
+            aside .sidebar a{
+                text-decoration: none;
+            }
 
-        main {
-            margin-top: 1.4rem;
-            margin-left: -9rem;
-            width: 78.6rem;
-        }
+            main{
+                margin-top: 1.4rem;
+                margin-left: -9rem;
+                width: 78.6rem;
+            }
     </style>
 </head>
 

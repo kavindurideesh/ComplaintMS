@@ -9,6 +9,6 @@ if (!isset($_SESSION['user_id'])) {
     echo "Session not destroyed.";
 }
 
-header("Location: ../login.php");  // Redirect to the login page
+header("Location: ./login.php");  // Redirect to the login page
 exit();
 ?>
