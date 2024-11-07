@@ -81,27 +81,24 @@ if (isset($_POST['add_complaint_type'])) {
     $check_result = mysqli_query($con, $check_query);
 
     if ($check_result) {
-
         if (mysqli_num_rows($check_result) > 0) {
-
-            echo "<script>alert('type already exists'); </script>";
+            echo "<script>alert('Type already exists');</script>";
         } else {
 
             $insert_query = "INSERT INTO complaint_type (type,admin_type) VALUES ('$type','$staff_type')";
             if (mysqli_query($con, $insert_query)) {
-
-                echo "tupe added successfully.";
+                echo "<script>alert('Type added successfully.');</script>";
                 header("location:settings.php");
+                exit;
             } else {
-
                 echo "Error: " . mysqli_error($con);
             }
         }
     } else {
-
         echo "Error: " . mysqli_error($con);
     }
 }
+
 
 if (isset($_GET['delete_location'])) {
     $location_id = $_GET['delete_location'];
@@ -148,6 +145,9 @@ if (isset($_GET['delete_type'])) {
     <link rel="stylesheet" href="popupstyle.css">
     <title>Admin-Location Settings</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
+    <style>
+        label{padding-left: 5px;}
+    </style>
 </head>
 
 <script>
