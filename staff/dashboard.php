@@ -6,7 +6,7 @@ ob_start(); ?>
 
 session_start();
 
-if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
+if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'staff')) {
     header("location:../login.php");
     exit;
 }
@@ -16,6 +16,8 @@ include("../connection.php");
 
 $query = "SELECT * FROM user_profiles WHERE user_id = '$user'";
 $result = mysqli_query($con, $query);
+
+// get staff type
 
 if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);

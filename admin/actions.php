@@ -9,6 +9,24 @@ function createUser($username, $name, $email, $password, $role) {
     return mysqli_query($con, $sql);
 }
 
+function createAdmin($username, $name, $email, $password, $role,$admintype) {
+    global $con;
+    $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    $sql1 = "INSERT INTO users (user_name, name, email, password, role, status) VALUES ('$username', '$name', '$email', '$hashedPassword', '$role', 'active')";
+    mysqli_query($con, $sql1);
+    $admin_id = mysqli_insert_id($con);
+    $sql2 = "INSERT INTO admin_types(admin_id,admin_type) VALUES ('$admin_id','$admintype')";
+    if(mysqli_query($con,$sql2))
+    {
+        echo "data inserted successfully";
+        return true;
+    }
+    else
+    {
+        echo "error in data insertion ".mysqli_error($con);
+    }
+}
+
 
 function updateUser($id, $username, $email, $role) {
     global $con;

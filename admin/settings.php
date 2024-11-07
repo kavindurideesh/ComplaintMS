@@ -40,6 +40,9 @@ $resultLocations = mysqli_query($con, $queryLocations);
 $queryComplaintTypes = "SELECT * FROM complaint_type";
 $resultComplaintTypes = mysqli_query($con, $queryComplaintTypes);
 
+$staffTypesQuery = "SELECT * FROM admin_types";
+$resultStaffTypes = mysqli_query($con,$staffTypesQuery);
+
 if (isset($_POST['submit_location'])) {
     $location_name = mysqli_real_escape_string($con, $_POST['location_name']);
 
@@ -70,8 +73,9 @@ if (isset($_POST['submit_location'])) {
     }
 }
 if (isset($_POST['add_complaint_type'])) {
-    $type = mysqli_real_escape_string($con, $_POST['complaint_type']);
-    $admin_type = mysqli_real_escape_string($con, $_POST['admin_type']);
+    $type = $_POST['complaint_type'];
+    $staff_type = $_POST['staff_type'];
+
 
     $check_query = "SELECT * FROM complaint_type WHERE type = '$type'";
     $check_result = mysqli_query($con, $check_query);
@@ -80,7 +84,8 @@ if (isset($_POST['add_complaint_type'])) {
         if (mysqli_num_rows($check_result) > 0) {
             echo "<script>alert('Type already exists');</script>";
         } else {
-            $insert_query = "INSERT INTO complaint_type (type, admin_type) VALUES ('$type', '$admin_type')";
+
+            $insert_query = "INSERT INTO complaint_type (type,admin_type) VALUES ('$type','$staff_type')";
             if (mysqli_query($con, $insert_query)) {
                 echo "<script>alert('Type added successfully.');</script>";
                 header("location:settings.php");
@@ -284,23 +289,31 @@ if (isset($_GET['delete_type'])) {
                 <form class="form1" method="POST" action="settings.php">
                     <label for="complaint_type">Complaint Type :</label>
                     <input type="text" id="complaint_type" name="complaint_type" required>
-                    <label for="admin_type"> Admin Type :</label>
-                    <select id="admin_type"required>
-                    <option value="HOD">Head Of the Department</option>
-                                    <option value="Lecturer">Lecturer</option>
-                                    <option value="Network Manager">Network manager</option>
-                                    <option value="Instructor">Instructor</option>
-                                    <option value="Technical officer">Technical officer</option>
-                                    <option value="Laboratory Attendant">Laboratory attendant</option>
-                                    <option value="Staff Management Assistant">Staff management assistant</option>
-                    </select>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                    <?php
+                    if(mysqli_num_rows($resultStaffTypes) > 0)
+                    {
+                        echo "<label for='staff_type'>Add Superviser Type :</label>";
+                        echo "<select name='staff_type' id='staff_type'>";
+                        while($row = mysqli_fetch_assoc($resultStaffTypes))
+                        {
+                            echo '<option value="'.$row["admin_type"]. '" required>'.$row["admin_type"].'</option>';
+                        }
+                        echo "</select>";
+                    }
+                    else
+                    {
+                        echo "No Staff types to choose";
+                    }
+                    ?>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <button type="submit" class="btn btn-primary" name="add_complaint_type">Add Type</button>
                 </form>
                 <table>
                     <thead>
                         <tr>
                             <th>Type</th>
-                            <th>Admin</th>
+                            <th>Staff Type</th>
                             <th>Action</th>
                         </tr>
                     </thead>
