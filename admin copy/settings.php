@@ -186,7 +186,7 @@ if (isset($_GET['delete_type'])) {
                     <span class="material-icons-sharp">
                         settings
                     </span>
-                    <h3>Location Settings</h3>
+                    <h3>Settings</h3>
                 </a>
                 <a href="reports.php">
                     <span class="material-icons-sharp">
@@ -234,7 +234,7 @@ if (isset($_GET['delete_type'])) {
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">
-                            <img src=<?php echo $imagePath; ?>>
+                            <img src="<?php echo $imagePath; ?>">
                         </div>
                     </div>
                 </div>
@@ -308,6 +308,9 @@ if (isset($_GET['delete_type'])) {
     </div>
 
     <script src="index.js"></script>
-
+</script>
+         if(window.history.replaceState){
+                window.history.replaceState(null,null,window.location.href);
+            }</script>
 </body>
 </html>

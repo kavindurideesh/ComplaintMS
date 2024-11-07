@@ -117,7 +117,7 @@ main .recent-orders .p-3 button{
                     <span class="material-icons-sharp">
                         settings
                     </span>
-                    <h3>Location Settings</h3>
+                    <h3>Settings</h3>
                 </a>
                 <a href="reports.php">
                     <span class="material-icons-sharp">
@@ -165,7 +165,7 @@ main .recent-orders .p-3 button{
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src=<?php echo $imagePath; ?>>
+                        <img src="<?php echo $imagePath; ?>">
                     </div>
                 </div>
             </div>
@@ -202,12 +202,16 @@ main .recent-orders .p-3 button{
                                 </select>
                             </div>
                         </div>
-
+                
                         <button type="submit" class="btn btn-primary" name="createuser">Create User</button>
                     </form>
                 </div>
-            </div>
-
+            </div><br><br>
+               <h2>Upload Excel</h2>
+<form class="" action="" method="post" enctype="multipart/form-data">
+			<input type="file" name="excel" required value=""><span>(username,name,email,password,role)</span>
+			<button type="submit" name="import">Import</button>
+		</form>
         </main>
         <!-- End of Main Content -->
     </div>
@@ -217,6 +221,58 @@ main .recent-orders .p-3 button{
 
 </body>
 
-
+</script>
+         if(window.history.replaceState){
+                window.history.replaceState(null,null,window.location.href);
+            }</script>
 
 </html>
+<?php
+include("../connection.php");
+		if(isset($_POST["import"])){
+			$fileName = $_FILES["excel"]["name"];
+			$fileExtension = explode('.', $fileName);
+       $fileExtension = strtolower(end($fileExtension));
+			$newFileName = date("Y.m.d") . " - " . date("h.i.sa") . "." . $fileExtension;
+
+			$targetDirectory = "uploads/" . $newFileName;
+			move_uploaded_file($_FILES['excel']['tmp_name'], $targetDirectory);
+
+			error_reporting(0);
+			ini_set('display_errors', 0);
+
+			require 'excelReader/excel_reader2.php';
+			require 'excelReader/SpreadsheetReader.php';
+
+			$reader = new SpreadsheetReader($targetDirectory);
+			foreach($reader as $key => $row){
+				$username = $row[0];
+				$name = $row[1];
+				$email = $row[2];
+                $password = $row[3];
+                $role = $row[4];
+
+				if(mysqli_query($con, "INSERT INTO users VALUES('', '$username', '$name', '$email','$password','$role','active')")){
+                    echo
+                    "
+                    <script>
+                    alert('Succesfully Imported');
+                    document.location.href = '';
+                    </script>
+                    ";
+                }
+                else{
+                    echo
+                    "
+                    <script>
+                    alert('Import failed');
+                    document.location.href = '';
+                    </script>
+                    ";
+                }
+			}
+
+			
+		}
+		?>
+        

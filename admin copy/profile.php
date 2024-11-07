@@ -21,8 +21,8 @@ if ($result && mysqli_num_rows($result) > 0) {
     $row = mysqli_fetch_assoc($result);
     $imagePath = $row['path'];
 }
-$name="user";
-$sql="select * from users where user='$user'";
+$name = "user";
+$sql = "select * from users where user_id='$user'";
 $result = mysqli_query($con, $sql);
 
 if ($result && mysqli_num_rows($result) > 0) {
@@ -183,7 +183,7 @@ if (isset($_POST['upload'])) {
                         <span class="material-icons-sharp">
                             settings
                         </span>
-                        <h3>Location Settings</h3>
+                        <h3>Settings</h3>
                     </a>
                     <a href="reports.php">
                         <span class="material-icons-sharp">
@@ -231,7 +231,7 @@ if (isset($_POST['upload'])) {
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">
-                            <img src=<?php echo $imagePath; ?>>
+                            <img src="<?php echo $imagePath; ?>">
                         </div>
                     </div>
                 </div>

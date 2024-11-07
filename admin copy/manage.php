@@ -171,7 +171,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <span class="material-icons-sharp">
                     settings
                     </span>
-                    <h3>Location Settings</h3>
+                    <h3>Settings</h3>
                 </a>
                 <a href="reports.php">
                     <span class="material-icons-sharp">
@@ -219,7 +219,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <small class="text-muted">Admin</small>
                         </div>
                         <div class="profile-photo">
-                            <img src=<?php echo $imagePath; ?>>
+                            <img src="<?php echo $imagePath; ?>">
                         </div>
                     </div>
                 </div>

@@ -32,17 +32,23 @@ if ($result && mysqli_num_rows($result) > 0) {
     $name = $row['name'];
 }
 
+
+
 $queryUnresolved = "SELECT COUNT(*) as unresolvedCount FROM complaints WHERE status = 'unresolved'";
 $resultUnresolved = mysqli_query($con, $queryUnresolved);
 $rowUnresolved = mysqli_fetch_assoc($resultUnresolved);
 $unresolvedCount = $rowUnresolved['unresolvedCount'];
 
 // Find the number of solved complaints
-$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'solved'";
+$querySolved = "SELECT COUNT(*) as solvedCount FROM complaints WHERE status = 'resolved'";
 $resultSolved = mysqli_query($con, $querySolved);
-$solvedCount = mysqli_num_rows($resultSolved);
+$rowSolved = mysqli_fetch_assoc($resultSolved);
+$solvedCount = $rowSolved['solvedCount'];
+
 
 $totalCount = $unresolvedCount + $solvedCount;
+
+
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -50,6 +56,7 @@ if (isset($_GET['id'])) {
     if(isset($_POST["comment"]) && isset($_POST["name"]) ){
         $comment = $_POST["comment"];
         $name =$_POST["name"];
+
 
     $query = "SELECT * from complaints where issue_id=$id";
 
@@ -186,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 </a>
                 <a href="settings.php">
                     <span class="material-icons-sharp">
-                        receipt_long
+                        settings
                     </span>
                     <h3>settings</h3>
                 </a>
@@ -273,7 +280,7 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <div class="recent-orders">
-                <h2>Recent Complaints</h2>
+                <h2>Complaints</h2>
                 <table>
                     <thead>
                         <tr>
@@ -284,7 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <th>Type</th>
                             <th>Issue</th>
                             <th>Status</th>
-                            <th>Up Vote</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -292,7 +299,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         include('../connection.php');
 
                         $query = "SELECT users.name AS name, complaints.user_name, complaints.issue_id, complaints.contact, complaints.date, complaints.type,
-                         complaints.status, complaints.issue, complaints.up_count FROM users INNER JOIN complaints ON users.user_id = complaints.user_id WHERE
+                         complaints.status, complaints.issue FROM users INNER JOIN complaints ON users.user_id = complaints.user_id WHERE
                           complaints.status = 'unresolved';";
 
                         $result = mysqli_query($con, $query);
@@ -308,8 +315,7 @@ document.addEventListener('DOMContentLoaded', function() {
                                 <td><?php echo $row["type"]; ?></td>
                                 <td><?php echo $row["issue"]; ?></td>
                                 <td><?php echo $row["status"]; ?></td>
-                                <td><?php echo $row["up_count"]; ?></td>
-                                <td></td>
+                                <td style="text-align:center;"><button class="button" id="toggleButton">Change Status</button></td>
                             </tr>
                         <?php }
 

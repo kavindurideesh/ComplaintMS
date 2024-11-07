@@ -50,11 +50,12 @@ if ($result && mysqli_num_rows($result) > 0) {
     <link rel = "stylesheet" href="popupstyle.css" >
     <title>Admin-Reports</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
+   
+        
 </head>
 
-<script>
 
-    </script>
+
 <body>
 
     <div class="container" id="blur">
@@ -91,7 +92,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                     <span class="material-icons-sharp">
                         settings
                     </span>
-                    <h3>Location Settings</h3>
+                    <h3>Settings</h3>
                 </a>
                 <a href="reports.php" class="active">
                     <span class="material-icons-sharp">
@@ -139,7 +140,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         <small class="text-muted">Admin</small>
                     </div>
                     <div class="profile-photo">
-                        <img src=<?php echo $imagePath; ?>>
+                        <img src="<?php echo $imagePath; ?>">
                     </div>
                 </div>
             </div>
