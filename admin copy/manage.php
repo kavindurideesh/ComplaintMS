@@ -1,11 +1,11 @@
-<?php
+<?php 
 ob_start();
 session_start();
-if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
+if(!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role'] == 'admin')) {
     header("location:../login.php");
     exit;
 }
-$user = $_SESSION['user_id'];
+$user=$_SESSION['user_id'];
 include("../connection.php");
 require 'actions.php';
 $sqlAdmins = "SELECT user_name, name, email, status FROM users WHERE role = 'admin'";
@@ -29,13 +29,13 @@ if ($resultStudents) {
 }
 if (isset($_POST['toggle_status'])) {
     $id = $_POST['student'];
-
-
+    
+   
     $currentStatus = getStatus($id);
 
-
+  
     $newStatus = ($currentStatus === 'active') ? 'inactive' : 'active';
-    $result = updateStatus($id, $newStatus);
+      $result = updateStatus($id, $newStatus);
 
     if ($result) {
         header("location:manage.php");
@@ -50,12 +50,12 @@ if (isset($_POST['toggle_status'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete'])) {
     $id = $_POST['delete'];
 
-
+   
     $deleteSql = "DELETE FROM users WHERE user_id = $id";
     $deleteResult = mysqli_query($con, $deleteSql);
 
     if ($deleteResult) {
-
+      
         header("location:manage.php");
         exit;
     } else {
@@ -98,37 +98,38 @@ if ($result && mysqli_num_rows($result) > 0) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.15/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.15/dist/sweetalert2.all.min.js"></script>
     <!-- Add this to the <head> section of your HTML file -->
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script> -->
 
 
     <link rel="stylesheet" href="admin123.css">
     <script>
         function submitDeleteForm(studentId) {
-            Swal.fire({
-                title: 'Confirm Delete',
-                text: 'Are you sure you want to delete this student?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Delete'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    const form = document.createElement('form');
-                    form.method = 'post';
-                    form.action = '';
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = 'delete';
-                    input.value = studentId;
-                    form.appendChild(input);
-                    document.body.appendChild(form);
-                    form.submit();
-                }
-            });
+    Swal.fire({
+        title: 'Confirm Delete',
+        text: 'Are you sure you want to delete this student?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Delete'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            const form = document.createElement('form');
+            form.method = 'post';
+            form.action = ''; 
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'delete';
+            input.value = studentId;
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
         }
-    </script>
+    });
+}
+
+    </script>  
     <title>Admin-Manage User</title>
     <link rel="icon" href="favicon.png" sizes="120x120" type="image/png">
 </head>
@@ -168,7 +169,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                 </a>
                 <a href="settings.php">
                     <span class="material-icons-sharp">
-                        settings
+                    settings
                     </span>
                     <h3>Settings</h3>
                 </a>
@@ -184,12 +185,6 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </span>
                     <h3>Create Users</h3>
                 </a>
-                <a href="createAdmin.php">
-                    <span class="material-icons-sharp">
-                        admin_panel_settings
-                    </span>
-                    <h3>Create Admin</h3>
-                </a>
                 <a href="../logout.php">
                     <span class="material-icons-sharp">
                         logout
@@ -203,31 +198,31 @@ if ($result && mysqli_num_rows($result) > 0) {
         <!-- Main Content -->
         <main>
             <h1>MANAGE USERS</h1>
-            <div class="nav">
-                <button id="menu-btn">
-                    <span class="material-icons-sharp">
-                        menu
-                    </span>
-                </button>
-                <div class="dark-mode">
-                    <span class="material-icons-sharp active">
-                        light_mode
-                    </span>
-                    <span class="material-icons-sharp">
-                        dark_mode
-                    </span>
-                </div>
+                <div class="nav">
+                    <button id="menu-btn">
+                        <span class="material-icons-sharp">
+                            menu
+                        </span>
+                    </button>
+                    <div class="dark-mode">
+                        <span class="material-icons-sharp active">
+                            light_mode
+                        </span>
+                        <span class="material-icons-sharp">
+                            dark_mode
+                        </span>
+                    </div>
 
-                <div class="profile">
-                    <div class="info">
-                        <p>Hey, <b><?php echo $name; ?></b></p>
-                        <small class="text-muted">Admin</small>
-                    </div>
-                    <div class="profile-photo">
-                        <img src="<?php echo $imagePath; ?>">
+                    <div class="profile">
+                        <div class="info">
+                            <p>Hey, <b><?php echo $name; ?></b></p>
+                            <small class="text-muted">Admin</small>
+                        </div>
+                        <div class="profile-photo">
+                            <img src="<?php echo $imagePath; ?>">
+                        </div>
                     </div>
                 </div>
-            </div>
 
             <div class="recent-orders">
                 <h2>Students</h2>
@@ -240,61 +235,60 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <th>Status</th>
                             <th colspan="2">Actions</th>
                         </tr>
-                        <?php foreach ($students as $student) { ?>
-                            <tr>
-
-                                <td><?php echo $student['user_name']; ?></td>
-                                <td><?php echo $student['name']; ?></td>
-                                <td><?php echo $student['email']; ?></td>
-                                <td><?php echo $student['status']; ?></td>
-                                <td>
-                                    <form method="post" action="">
-                                        <input type="hidden" name="student" value=<?php echo $student['user_id']; ?>>
-                                        <input type="submit" name="toggle_status" value="<?php echo ($student['status'] === 'active') ? 'Deactivate' : 'Activate'; ?>">
-                                    </form>
-
-                                    <button onclick="submitDeleteForm('<?php echo $student['user_id']; ?>')">delete</button>
-                                </td>
-                            </tr>
-                        <?php } ?>
-                        </tbody>
-                </table>
-
-                <h2>Admins</h2>
-
-                <table>
-                    <thead>
+                        <?php foreach ($students as $student){ ?>
                         <tr>
-
-                            <th>Username</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Status</th>
+                        
+                            <td><?php echo $student['user_name']; ?></td>
+                            <td><?php echo $student['name']; ?></td>
+                            <td><?php echo $student['email']; ?></td>
+                            <td><?php echo $student['status']; ?></td>
+                            <td>
+                                <form method="post" action="">
+                                    <input type="hidden" name="student" value=<?php echo $student['user_id']; ?>>
+                                    <input type="submit" name="toggle_status" value="<?php echo ($student['status'] === 'active') ? 'Deactivate' : 'Activate'; ?>">
+                                </form>
+                                
+                                <button onclick="submitDeleteForm('<?php echo $student['user_id'];?>')">delete</button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($admins as $admin) { ?>
-                            <tr>
-
-                                <td><?php echo $admin['user_name']; ?></td>
-                                <td><?php echo $admin['name']; ?></td>
-                                <td><?php echo $admin['email']; ?></td>
-                                <td><?php echo $admin['status']; ?></td>
-                            </tr>
                         <?php } ?>
                     </tbody>
                 </table>
 
+                <h2>Admins</h2>
+    
+                <table >
+                    <thead>
+                    <tr>
+                    
+                        <th>Username</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                    </tr></thead>
+                    <tbody>
+                    <?php foreach ($admins as $admin){ ?>
+                        <tr>
+                        
+                            <td><?php echo $admin['user_name']; ?></td>
+                            <td><?php echo $admin['name']; ?></td>
+                            <td><?php echo $admin['email']; ?></td>
+                            <td><?php echo $admin['status']; ?></td>
+                        </tr>
+                    <?php } ?>
+                    </tbody>
+                </table>
 
+               
             </div>
         </main>
         <!-- End of Main Content -->
 
-
+        
 
     </div>
 
-
+ 
     <script src="index.js"></script>
 
 </body>

@@ -131,12 +131,6 @@ main .recent-orders .p-3 button{
                     </span>
                     <h3>Create Users</h3>
                 </a>
-                <a href="createAdmin.php">
-                    <span class="material-icons-sharp">
-                        admin_panel_settings
-                    </span>
-                    <h3>Create Admin</h3>
-                </a>
                 <a href="../logout.php">
                     <span class="material-icons-sharp">
                         logout
@@ -199,7 +193,7 @@ main .recent-orders .p-3 button{
                             <input type="password" class="form-control" name="password" required>
                         </div>
 
-                        <!-- <div class="inputfield">
+                        <div class="inputfield">
                             <label for="role" class="form-label">Role :</label>
                             <div class="custom_select">
                                 <select class="form-select" name="role" required>
@@ -207,7 +201,7 @@ main .recent-orders .p-3 button{
                                     <option value="student">Student</option>
                                 </select>
                             </div>
-                        </div> -->
+                        </div>
                 
                         <button type="submit" class="btn btn-primary" name="createuser">Create User</button>
                     </form>
