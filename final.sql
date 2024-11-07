@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 05, 2024 at 07:43 PM
+-- Generation Time: Nov 07, 2024 at 01:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,9 +37,7 @@ CREATE TABLE `admin_types` (
 --
 
 INSERT INTO `admin_types` (`admin_id`, `admin_type`) VALUES
-(9, 'Lecturer'),
-(11, 'Lecturer'),
-(30, 'Network Manager');
+(33, 'HOD');
 
 -- --------------------------------------------------------
 
@@ -53,13 +51,6 @@ CREATE TABLE `authentication` (
   `otp` int(15) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `authentication`
---
-
-INSERT INTO `authentication` (`user_id`, `timestamp`, `otp`) VALUES
-(9, '2024-10-15 00:16:21', 385724);
-
 -- --------------------------------------------------------
 
 --
@@ -72,24 +63,13 @@ CREATE TABLE `complaints` (
   `user_name` varchar(100) NOT NULL,
   `contact` int(15) DEFAULT NULL,
   `location` varchar(20) NOT NULL,
-  `type` varchar(25) NOT NULL,
+  `type` varchar(50) NOT NULL,
   `date` date NOT NULL,
   `issue` varchar(400) NOT NULL,
   `serial` int(30) DEFAULT NULL,
   `status` varchar(20) NOT NULL,
   `up_count` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `complaints`
---
-
-INSERT INTO `complaints` (`issue_id`, `user_id`, `user_name`, `contact`, `location`, `type`, `date`, `issue`, `serial`, `status`, `up_count`) VALUES
-(2, 4, '2020CSC024', 775857385, 'csl3', 'equipment malfunction', '2023-09-04', '1st row 2nd PC not working', NULL, 'resolved', 0),
-(5, 4, 'csc007', 0, 'csl2', 'maintainance', '2023-09-15', 'VSBSBSB', 0, 'unresolved', 3),
-(7, 7, 'zvfzv', 243, 'csl3', 'equipment malfunction', '2024-10-22', 'fsdvd', 0, 'unresolved', 32),
-(8, 7, 'sgb s', 0, 'csl3', 'equipment malfunction', '2024-10-24', 'r', 0, 'unresolved', 264),
-(9, 7, '1234', 1243, 'csl2', 'equipment malfunction', '2024-10-15', '1324', 1234, 'resolved', 30);
 
 -- --------------------------------------------------------
 
@@ -99,17 +79,9 @@ INSERT INTO `complaints` (`issue_id`, `user_id`, `user_name`, `contact`, `locati
 
 CREATE TABLE `complaint_type` (
   `type_id` int(11) NOT NULL,
-  `type` varchar(50) NOT NULL
+  `type` varchar(50) NOT NULL,
+  `admin_type` enum('HOD','Lecturer','Network Manager','Instructor','Technical Officer','Laboratory Attendent','Staff Management Assistant') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `complaint_type`
---
-
-INSERT INTO `complaint_type` (`type_id`, `type`) VALUES
-(1, 'equipment malfunction'),
-(2, 'maintainance'),
-(3, 'other');
 
 -- --------------------------------------------------------
 
@@ -146,15 +118,6 @@ CREATE TABLE `resolved_complaints` (
   `comments` varchar(300) NOT NULL,
   `resolved_by` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `resolved_complaints`
---
-
-INSERT INTO `resolved_complaints` (`resolved_id`, `issue_id`, `user_id`, `date_solved`, `comments`, `resolved_by`) VALUES
-(3, 5, 4, '2024-10-14', 'dfgdf', 'drgf'),
-(4, 2, 4, '2024-10-14', 'dfhd', 'dfg'),
-(5, 9, 7, '2024-11-05', 'dsdfsd', 'pasandf');
 
 -- --------------------------------------------------------
 
@@ -195,13 +158,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `user_name`, `name`, `email`, `password`, `role`, `status`) VALUES
-(4, '2020CSC024', 'Isath', 'muhamadissath92@gmail.com', '$2y$10$/FwXel75JMDImYDHzAKYU.Ewe87Fq9Hzsy9.9jE8HniGlLgD/dzvi', 'student', 'active'),
-(5, '2020CSC016', 'Nadeera', 'nadeerarukshanhewawasam@gmail.com', '$2y$10$4kxJdIAsqn.jdQqV8x26k.H4z2vmFUWQe4WT6Lsm6A6gJNnNe3bqS', 'student', 'active'),
-(7, '2020CSC020', 'Joshna', 'venevijay09@gmail.com', '$2y$10$/7YExFQxJ6qWYhrnstK/lOYhIs7sGpIRnzs.td4BCsu/CN1NMM58i', 'student', 'active'),
-(9, '2021csc060', 'Rideesh', 'kavindurideesh@gmail.com', '$2y$10$.LDgNTIbidGHe217Rwnwk.DXinxwW.DVAoYO2ZvcRwHRduWQMfgfa', 'admin', 'active'),
-(11, '2021csc062', 'pasan newinda', 'wpasannewinda@gmail.com', '$2y$10$A.z.YEDFdfb84A/hIqIo/eY3tm648Jk0wr6If8cbVGaQQGWV0rD2G', 'admin', 'active'),
+(11, 'MAIN_ADMIN', 'mainadmin', 'mainadmin@gmail.com', '$2y$10$A.z.YEDFdfb84A/hIqIo/eY3tm648Jk0wr6If8cbVGaQQGWV0rD2G', 'admin', 'active'),
 (12, 'student', 'student', 'student@gmail.com', '$2y$10$U/HB9Et4N12Wb/pyJaouZ.XLu/xL5Xk.zlwUeSV7ZqootDbduR3Pi', 'student', 'active'),
-(30, 'adminTypeTest', 'adminType', 'adminType@gmail.com', '$2y$10$zgXRtmBA//GCyqoO/s441uvriKCkjewS69RY.cqsp7miw0qT48zkG', 'admin', 'active');
+(33, 'staffTypetest', 'staff_01', 'staff_01@gmail.com', '$2y$10$Ea0Qda/LdqDTp972Md57xujn6nMmACrqcyrAaczKUdlho9VYDbORK', 'staff', 'active');
 
 -- --------------------------------------------------------
 
@@ -214,13 +173,6 @@ CREATE TABLE `user_profiles` (
   `user_id` int(11) NOT NULL,
   `path` varchar(300) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `user_profiles`
---
-
-INSERT INTO `user_profiles` (`id`, `user_id`, `path`) VALUES
-(2, 7, '../profileimages/Leonardo_Anime_XL_Create_an_illustration_of_a_tranquil_garden_1.jpg');
 
 -- --------------------------------------------------------
 
@@ -344,7 +296,7 @@ ALTER TABLE `stmp`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `user_profiles`

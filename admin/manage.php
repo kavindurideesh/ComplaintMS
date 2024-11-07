@@ -8,7 +8,7 @@ if (!(isset($_SESSION['user_id']) && isset($_SESSION['role']) && $_SESSION['role
 $user = $_SESSION['user_id'];
 include("../connection.php");
 require 'actions.php';
-$sqlAdmins = "SELECT user_name, name, email, status FROM users WHERE role = 'admin'";
+$sqlAdmins = "SELECT user_name, name, email, status FROM users WHERE role = 'staff'";
 $resultAdmins = mysqli_query($con, $sqlAdmins);
 $admins = array();
 
@@ -260,7 +260,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                         </tbody>
                 </table>
 
-                <h2>Admins</h2>
+                <h2>Authority</h2>
 
                 <table>
                     <thead>
