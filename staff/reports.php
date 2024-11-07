@@ -82,18 +82,6 @@ if ($result && mysqli_num_rows($result) > 0) {
                     </span>
                     <h3> Profile</h3>
                 </a>
-                <a href="manage.php">
-                    <span class="material-icons-sharp">
-                        manage_accounts
-                    </span>
-                    <h3> Manage Users</h3>
-                </a>
-                <a href="settings.php">
-                    <span class="material-icons-sharp">
-                        settings
-                    </span>
-                    <h3>Settings</h3>
-                </a>
                 <a href="reports.php" class="active">
                     <span class="material-icons-sharp">
                         report_gmailerrorred

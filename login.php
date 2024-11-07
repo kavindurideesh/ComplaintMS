@@ -10,14 +10,6 @@ if (isset($_SESSION['error'])) {
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
     if ($_SESSION['role'] == 'admin') {
-        $query = "SELECT admin_type FROM admin_types WHERE admin_id='".$_SESSION['user_id']."'";
-        $result = mysqli_query($con, $query);
-        if (mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            if($row['admin_id']!=null){
-                header("location:staff/dashboard.php");
-            }
-        }
         header("location:admin/dashboard.php");
         exit;
     } else {
