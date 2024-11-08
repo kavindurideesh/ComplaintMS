@@ -61,5 +61,6 @@ For remote access through the server, visit: `http://10.10.10.157/group10/Compla
     - **Location**: Specify the location to identify the damaged product.
     - **Type**: Select complaint categories relevant to admin type for efficient issue management.
     - **Date**: Displays the complaint’s lodged date.
+    - **Update**: Student can update their current complain and also vote (like up vote) the complains
 
 ---
