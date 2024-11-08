@@ -42,7 +42,7 @@ if (isset($_POST['login'])) {
             $row = mysqli_fetch_assoc($result);
 
             // Check if the password matches the stored hash
-            if (!password_verify($password, $row['password'])) {
+            if (password_verify($password, $row['password'])) {
                 if ($row['status'] == 'active') {
                     $_SESSION['user_id'] = $row['user_id'];
                     $_SESSION['role'] = $row['role'];

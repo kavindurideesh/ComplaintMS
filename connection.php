@@ -1,8 +1,8 @@
 <?php
-$hostname="localhost";
-$username="root";
-$password="";
-$dbname="final";
+$hostname="10.10.10.157";
+$username="csc210user";
+$password="CSC210!";
+$dbname="group10";
 $con=mysqli_connect($hostname,$username,$password,$dbname);
 if(!$con)
 {
