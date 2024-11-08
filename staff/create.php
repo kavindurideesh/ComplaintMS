@@ -200,7 +200,7 @@ if (isset($_POST['submit_complaint'])) {
                     </div>
                     <div class="inputfield">
                         <label>Description of Issue</label>
-                        <textarea name="issue" class="textarea" required></textarea>
+                        <textarea name="issue" rows=10 cols=40 class="textarea" required></textarea>
                     </div>
                     <div class="inputfield">
                         <label>Serial</label>
