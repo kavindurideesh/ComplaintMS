@@ -125,8 +125,11 @@ if (isset($_FILES['image']) && $_FILES['image']['error'] == UPLOAD_ERR_OK) {
 
     
         // Insert into the database
-        $query = "INSERT INTO complaints (user_id, user_name, contact, location, type, date, issue, serial, status, image_path)
-                VALUES ('$user', '$username', '$contact', '$location', '$type', '$date', '$issue', '$serial', 'unresolved', '$imagePath1')";
+        $query = "INSERT INTO complaints (user_id, user_name, contact, location, type, date, issue, serial, status, image_path,up_count)
+                VALUES ('$user', '$username', '$contact', '$location', '$type', '$date', '$issue', '$serial', 'unresolved', '$imagePath1',0)";
+    
+        //$query = "INSERT INTO complaints (column1, column2, up_count) VALUES ('$value1', '$value2', 0)";
+
     
         if (mysqli_query($con, $query)) {
             // Redirect or handle success

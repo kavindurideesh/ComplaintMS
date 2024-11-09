@@ -58,10 +58,8 @@ try {
     $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      // Enable verbose debug output
     $mail->isSMTP();                                            // Send using SMTP
     $mail->Host       = 'smtp.gmail.com';                     // Set the SMTP server to send through
-    $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-    $mail->Username   = $row['email'];                     // SMTP username
-    $mail->Password   = 'ugnlcwivmkrommgt';                               // SMTP password
-    $mail->SMTPSecure = 'ssl';         
+    $mail->Username   = 'fernandonewantha09@gmail.com';                     // SMTP username
+    $mail->Password   = 'xzqj hofo emfw patn';                               // SMTP password
     $mail->Port       = 465;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     // Recipients
