@@ -8,7 +8,7 @@
 
 ## Login
 
-For remote access through the server, visit: `http://10.10.10.157/group10/ComplaintManagementSystem-DCS/Project`
+For remote access through the server, visit: `http://10.10.10.157/group10/login.php`
 
 **Username:** MAIN_ADMIN  
 **Password:** 12345
