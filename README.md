@@ -62,5 +62,6 @@ For remote access through the server, visit: `http://10.10.10.157/group10/Compla
     - **Type**: Select complaint categories relevant to admin type for efficient issue management.
     - **Date**: Displays the complaint’s lodged date.
     - **Update**: Student can update their current complain and also vote (like up vote) the complains
+    - **Password**: If an user forgot their password the can reset their password via clicking forgot password button, It will send OTP to their respective email to reset it
 
 ---
